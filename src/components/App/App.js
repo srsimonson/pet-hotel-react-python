@@ -4,6 +4,7 @@ import Home from '../Home/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import ManageOwners from '../ManageOwners/ManageOwners';
 import { HashRouter as Router, Route} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
@@ -11,8 +12,8 @@ class App extends Component {
       <div className="App">
         <Router>
 
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/Dashboard' component={Dashboard}/>
+          <Route exact path='/' component={Dashboard}/>
+          {/* <Route exact path='/Dashboard' component={Dashboard}/> */}
           <Route exact path='/ManageOwners' component={ManageOwners}/>
 
         </Router>
@@ -21,4 +22,5 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (reduxStore) => ({ reduxStore });
+export default connect(mapStateToProps)(App);
