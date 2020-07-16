@@ -63,7 +63,7 @@ class ManageOwners extends Component {
                         <th>Number of Pets</th>
                         <th>Actions</th>
                     </tr>
-                    {this.props.reduxStore.ownerReducer.map(item =>
+                    {this.props.reduxStore.owner.map(item =>
                     <tr key={item.id}>
                         <td>{item.name}</td>
                         <td>{item.numberOfPets}</td>
