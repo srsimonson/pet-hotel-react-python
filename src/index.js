@@ -30,6 +30,17 @@ function* addOwner(name){
   }
 }
 
+function* addPet(action){
+  console.log('in add pet saga', action.payload);
+  try {
+    const addPet = yield axios.post(`/pets/${action.payload}`);
+    console.log('display pet', addPet);
+    yield put({type: 'GET_PETS', payload: addPet.data[0]});
+  }catch (error){
+    console.log('error', error);
+  }
+}
+
 function* deleteOwner(action){
   try{
     yield axios.delete(`/owners/${action.payload}`);
@@ -37,6 +48,16 @@ function* deleteOwner(action){
     console.log('error', error);
   }
 }
+
+function* deletePet(action){
+  try{
+    yield axios.delete(`/pets/${action.payload}`);
+  }catch (error){
+    console.log('error', error);
+  }
+}
+
+
 
 const petsPeducer = (state = [], action) => {
   switch (action.type) {
@@ -74,7 +95,9 @@ function* rootSaga(){
   yield takeEvery('GET_PETS', getPets);
   yield takeEvery('GET_OWNERS', getOwners);
   yield takeEvery('ADD_OWNER', addOwner);
-  yield takeEvery('DELETE_OWNER', deleteOwner)
+  yield takeEvery('DELETE_OWNER', deleteOwner);
+  yield takeEvery('ADD_PET', addPet);
+  yield takeEvery('DELETE_PET', deletePet)
 }
 
 

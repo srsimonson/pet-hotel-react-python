@@ -29,6 +29,12 @@ class Dashboard extends Component {
         })
     }
 
+    handleDelete = () => {
+        console.log('delete');
+        this.props.dispatch({ type: 'DELETE_PET'})
+        this.props.dispatch({ type: 'ADD_PET' })
+    }
+
     render(){
         return (
             <div>
