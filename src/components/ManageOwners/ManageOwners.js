@@ -10,7 +10,7 @@ class ManageOwners extends Component {
     componentDidMount = () => {
         console.log('hi');
         // Rename SAGAS to whatever Jay has them as
-        this.props.dispatch({ type: 'FETCH_ALL_OWNERS' })
+        this.props.dispatch({ type: 'GET_OWNERS' })
     }
 
     handleChange = (event) => {
@@ -30,13 +30,13 @@ class ManageOwners extends Component {
                 newOwner: this.state.newOwner
             }
         });
-        this.props.dispatch({ type: 'FETCH_ALL_OWNERS' })
+        this.props.dispatch({ type: 'GET_OWNERS' })
     }
 
     delete = () => {
         console.log('delete clicked');
         this.props.dispatch({ type: 'DELETE_OWNER'})
-        this.props.dispatch({ type: 'FETCH_ALL_OWNERS' })
+        this.props.dispatch({ type: 'GET_OWNERS' })
     }
 
     render(){
