@@ -22,5 +22,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (reduxStore) => ({ reduxStore });
-export default connect(mapStateToProps)(App);
+// const mapStateToProps = (reduxStore) => ({ reduxStore });
+export default connect(
+  // mapStateToProps
+  )(App);
