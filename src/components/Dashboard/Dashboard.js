@@ -11,15 +11,27 @@ class Dashboard extends Component {
         checkedIn: false
     }
 
+    componentDidMount = () => {
+        this.props.dispatch ({ type: 'GET_PETS'})
+    }
+
     handleChange = (typeOf, value) => {
         this.setState({
             [typeOf]: value
         })
-        
+        console.log('this.state', this.state);
     }
 
     handleSubmit = () => {
-        console.log('clicked');
+        this.props.dispatch({
+            type: 'ADD_PET',
+            payload: {
+                petName: this.state.petName,
+                petBreed: this.state.petBreed,
+                petColor: this.state.petColor,
+            }
+        });
+        this.props.dispatch ({ type: 'GET_PETS'})
     }
 
     handleCheckIn = () => {
