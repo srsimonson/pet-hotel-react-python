@@ -19,6 +19,25 @@ function* getOwners(){
   yield put({type: 'SET_OWNERS', payload: ownerInfo});
 }
 
+function* addOwner(name){
+  console.log('in add owner sage', name.payload);
+  try {
+    const addOwner = yield axios.post(`/owners/${name.payload}`);
+    console.log('display owner', addOwner);
+    yield put({type: 'GET_OWNERS', payload: addOwner.data[0]});
+  }catch (error){
+    console.log('error', error);
+  }
+}
+
+function* deleteOwner(action){
+  try{
+    yield axios.delete(`/owners/${action.payload}`);
+  }catch (error){
+    console.log('error', error);
+  }
+}
+
 const petsPeducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_PETS':
@@ -54,6 +73,8 @@ sagaMiddleware.run(rootSaga);
 function* rootSaga(){
   yield takeEvery('GET_PETS', getPets);
   yield takeEvery('GET_OWNERS', getOwners);
+  yield takeEvery('ADD_OWNER', addOwner);
+  yield takeEvery('DELETE_OWNER', deleteOwner)
 }
 
 

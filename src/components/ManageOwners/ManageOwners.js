@@ -8,6 +8,7 @@ class ManageOwners extends Component {
     }
 
     componentDidMount = () => {
+        console.log('hi');
         this.props.dispatch({ type: 'GET_OWNERS' })
     }
 
