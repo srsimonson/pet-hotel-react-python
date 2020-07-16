@@ -14,6 +14,7 @@ class Dashboard extends Component {
         this.setState({
             [typeOf]: value
         })
+        
     }
 
     handleSubmit = () => {
