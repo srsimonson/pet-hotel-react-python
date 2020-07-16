@@ -23,10 +23,9 @@ class Dashboard extends Component {
     }
 
     handleCheckIn = () => {
-        let checkedIn = this.state.checkedIn
-        console.log('handleCheckIn', checkedIn);
+        console.log('handleCheckIn', this.state.checkedIn);
         this.setState({
-            checkedIn: !checkedIn
+            checkedIn: !this.state.checkedIn
         })
     }
 
