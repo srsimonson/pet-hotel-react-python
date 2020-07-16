@@ -9,7 +9,6 @@ class ManageOwners extends Component {
 
     componentDidMount = () => {
         console.log('hi');
-        // Rename SAGAS to whatever Jay has them as
         this.props.dispatch({ type: 'GET_OWNERS' })
     }
 
@@ -63,13 +62,13 @@ class ManageOwners extends Component {
                         <th>Number of Pets</th>
                         <th>Actions</th>
                     </tr>
-                    {this.props.reduxStore.owner.map(item =>
+                    {/* {this.props.reduxStore.ownerReducer.map(item =>
                     <tr key={item.id}>
                         <td>{item.name}</td>
                         <td>{item.numberOfPets}</td>
                         <td><button onClick={this.delete}>Delete</button></td>
                     </tr>
-                    )}
+                    )} */}
                 </table>
             </div>
         )
