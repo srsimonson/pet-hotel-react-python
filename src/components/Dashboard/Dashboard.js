@@ -7,7 +7,8 @@ class Dashboard extends Component {
         petName: '',
         petColor: '',
         petBreed: '',
-        owner: ''
+        owner: '',
+        checkedIn: false
     }
 
     handleChange = (typeOf, value) => {
@@ -21,53 +22,89 @@ class Dashboard extends Component {
         console.log('clicked');
     }
 
+    handleCheckIn = () => {
+        let checkedIn = this.state.checkedIn
+        console.log('handleCheckIn', checkedIn);
+        this.setState({
+            checkedIn: !checkedIn
+        })
+    }
+
     render(){
         return (
-            <div className="dashboard">
-                <div className="addPet">
-                <div>Add Pet</div>
-                <div className="inputWrapper">
-                    <input placeholder="Pet Name" onChange={(event)=>{this.handleChange('petName', event.target.value)}}/>
-                    <input placeholder="Pet Color" onChange={(event)=>{this.handleChange('petColor', event.target.value)}}/>
-                    <input placeholder="Pet Breed" onChange={(event)=>{this.handleChange('petBreed', event.target.value)}}/>
-                    {this.props.reduxState.ownerReducer && 
-                    <select className="chooseOwnerName" onChange={(event)=>{this.handleChange('owner', event.target.value)}}>
-                        {this.props.reduxState.ownerReducer.map((owner)=>(
-                            <option value={owner.id}>{owner.name}</option>
-                        ))}
-                    </select>
-                    }    
-                    <button onClick={this.handleSubmit}>Submit</button>
-                </div>
-                </div>
-            <table>
-                <thead>
-                    <tr><th>Owner</th></tr>
-                    <tr><th>Pet</th></tr>
-                    <tr><th>Breed</th></tr>
-                    <tr><th>Color</th></tr>
-                    <tr><th>Checked In</th></tr>
-                    <tr><th>Actions</th></tr>
-                </thead>
-                <tbody>
-                    {this.props.reduxState.petsReducer &&
-                    <>
-                    {this.props.reduxState.petsReducer.map((pet)=> (
+            <div>
+                <h1><em>Dashboard View</em></h1>
+                <header>Pet Hotel</header>
+                <table>
+                    <tr>
+                        <th>Dashboard</th>
+                        <th>Manage Owners</th>
+                    </tr>
+                </table>
 
+                <div className="dashboard">
+                    <div className="addPet">
+                    <div>Add Pet</div>
+                    <div className="inputWrapper">
+                        <input placeholder="Pet Name" onChange={(event)=>{this.handleChange('petName', event.target.value)}}/>
+                        <input placeholder="Pet Color" onChange={(event)=>{this.handleChange('petColor', event.target.value)}}/>
+                        <input placeholder="Pet Breed" onChange={(event)=>{this.handleChange('petBreed', event.target.value)}}/>
+                        {this.props.reduxState.ownerReducer && 
+                        <select className="chooseOwnerName" onChange={(event)=>{this.handleChange('owner', event.target.value)}}>
+                            {this.props.reduxState.ownerReducer.map((owner)=>(
+                                <option value={owner.id}>{owner.name}</option>
+                            ))}
+                        </select>
+                        }    
+                        <button onClick={this.handleSubmit}>Submit</button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
                         <tr>
-                            <td>{pet.ownerName}</td>
-                            <td>{pet.petName}</td>
-                            <td>{pet.breed}</td>
-                            <td>{pet.color}</td>
-                            <td>{pet.checkedIn}</td>
-                            <td><button onClick={this.handleDelete}>Delete</button></td>
+                            <th>Owner</th>
+                            <th>Pet</th>
+                            <th>Breed</th>
+                            <th>Color</th>
+                            <th>Checked In</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                    </>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {this.props.reduxState.petsReducer &&
+            
+                        this.props.reduxState.petsReducer.map((pet)=> (
+
+                            <tr>
+                                <td>{pet.ownerName}</td>
+                                <td>{pet.petName}</td>
+                                <td>{pet.breed}</td>
+                                <td>{pet.color}</td>
+                                {this.state.checkedIn === false ?
+                                <td>no</td> :
+                                <td>{pet.checkedInDate}</td>}
+                                <td><button onClick={this.handleDelete}>Delete</button></td>
+
+                                <td>
+                                    {this.state.checkedIn === false ? 
+                                    <button onClick={this.handleCheckIn}>Check In</button> :
+                                    <button onClick={this.handleCheckIn}>Check Out</button>
+                                }
+                                </td>   
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                                {/* DELETE THIS TEST ONCE TABLE RENDERS */}
+                                <div className="test">
+                                    {this.state.checkedIn === false ? 
+                                    <button onClick={this.handleCheckIn}>Check In</button> :
+                                    <button onClick={this.handleCheckIn}>Check Out</button>
+                                }
+                                </div>
             </div>
+        </div>
         )
     }
 }
